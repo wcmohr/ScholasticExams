@@ -1,82 +1,45 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 1: Civic data analysis
+## Analyzing nationwide SAT and ACT scores in view of participation rates
 
-## Due November 22nd @9am
+### Problem Statement
+Our town mayor is looking to improve the educational outcomes for high school graduates. This is a very broad directive, and so to narrow the scope of inquiry I chose to use nationwide SAT and ACT score and participation data for each state to inform an assessment of how well a given state is performing.  I sought to determine how participation rate might associate with score and then identify states that are performing either particularly well or particularly poorly so that the characteristics and policies of these states can be examined in greater detail.
 
-## Business Case
+## Executive Summary
+After loading the data, I made a thorough investigation of it and removed rows with missing values, corrected incorrect entries based on the source data found on the College Board's website, and otherwise readied the data for numerical analysis and visualization.  With the ACT and SAT data thus formatted I merged the two datasets to allow for simultaneous analysis.  Next I produced a data dictionary  for the reader's reference, with updates later on as I added derived features according to my curiosity.  After that, I proceeded to investigate the basic numerical and statistical properties of each feature, looked at relationships between features, and generated aggregates such as the mean value across years for like features for each state.  I also inspected within state year over year changes.  To get a better visual grasp of distributions and relationships, I made a number of graphs.  These graphs allowed for the identification of states that can be the targets of further inquiry and research. 
 
-Your hometown mayor just created a new data analysis team to give policy advice, and the administration recruited _you_ via LinkedIn to join it. Unfortunately, due to budget constraints, for now the "team" is just you...
+### Data Dictionary
+Below is a dictionary of the merged dataframe that served as the basis for my inquiry.
+|Feature|Type|Dataset|Description|
+|---|---|---|---|
+|State|object|test_df|The state to which the observations pertain|
+|2017_ACT_Participation|float|test_df|Proportion of the state's 2017 HS graduates who took the ACT| 
+|2017_SAT_Participation|float|test_df|Proportion of the state's 2017 HS graduates who took the SAT|
+|2017_ACT_Score|float|test_df|Mean ACT Composite score of the state's 2017 HS graduates|
+|2018_ACT_Score|float|test_df|Mean ACT Composite score of the state's 2018 HS graduates|
+|2019_ACT_Score|float|test_df|Mean ACT Composite score of the state's 2019 HS graduates|
+|2017_SAT_Score|float|test_df|Mean SAT Total score of the state's 2017 HS graduates|
+|2018_SAT_Score|float|test_df|Mean SAT Total score of the state's 2018 HS graduates|
+|2019_SAT_Score|float|test_df|Mean SAT Total score of the state's 2019 HS graduates|
+|ACT_Score_Avg|float|test_df|Mean of statewide ACT scores across 2017, 2018 and 2019|
+|SAT_Score_Avg|float|test_df|Mean of statewide SAT scores across 2017, 2018 and 2019|
+|ACT_Part_Avg|float|test_df|Mean of statewide ACT participation across 2017, 2018 and 2019|
+|SAT_Part_Avg|float|test_df|Mean of statewide SAT participation across 2017, 2018 and 2019|
 
-The mayor wants to start a new initiative to move the needle on high school education outcomes.
+### Main Points, Findings, and Results
+Over the course of my exploration of the data, it quickly became clear that participation rate has an inverse relationship with test score.  This consistent relationship suggests that it is the better prepared students who are motivated to take the less popular exam in an effort to optimize their chance of admittance to their desired institution.  It is seen very clearly in a year to year anlaysis of ACT score changes within each state.  SAT scores generally did not change nearly as much and so it is less easy to discern the within state relationship between score and participation.  The advantage the 100% participation rate states have is not having to worry about selection bias thwarting analysis of the state's educational progression or regression.
 
-Also unfortunately, that is the entirety of what you've been told. And the mayor just went on a lobbyist-funded fact-finding trip in the Bahamas. In the meantime, you got your hands on a [few national datasets][data] on [SAT and ACT][background] scores. Start exploring these to look for useful patterns and [possible hypotheses][ps]!
+This study reveiled a few states that are worth investigating to determine if any actionable steps can be taken to improve educational outcomes for the town's students.  From the analysis of ACT scores, Wisconsin with 20.43, Utah with 20.33, Montana with 20.03, Kentucky with 20.00, and Wyoming with 20.00 are all worth investigating for their comparatively solid scores, while Nevada's low average score of 17.8 beckons inquiry as a negative example.  
 
----
+For the SAT, there were fewer states with extremely high participation.  However, New Hampshire's score of 1058 (.96 participation) and Connecticut's score of 1047 (full participation) are notable.  In contrast, the Distric of Columbia's SAT average score of 967 (.95 participation) could be useful as a negative example.
 
-## Directions
+I chose to use the average of three years of test scores in identifying the above states as there will be inherently less variation in the scores.
 
-This project is focused on exploratory data analysis, aka "EDA". 
+### Observations and Conclusions
+I have identified a key relationship between participation rates and average test score results.  Viewing the data all together, the higher a state's participation on an exam, the lower the score on that exam.  Thus, conclusions can only readily be drawn from data for states with full participation.  Otherwise there is likely a pronounced selection bias, where less motivated students forego taking the exam.  I conclude that it would be beneficial to require exam participation for graduating high school seniors.  Only then can reliable data be gathered and analyzed for the purpose of tracking educational outcomes.
 
-EDA is an essential part of the data science analysis pipeline. Failure to perform EDA before modeling is almost guaranteed to lead to bad models and faulty conclusions. What you do in this project are good practices for all projects going forward, especially those after this bootcamp!
+### Next Steps
+From our present analysis, I believe futher research should be made into what underlies the success and failure of the previously mentioned states -- Wisconsin, Utah, Montana, Kentucky, Wyoming, Nevada, New Hampshire, Connecticut, and the Distric of Columbia.
 
-Spend your time trying to understand your data, through both summary statistics and visualization. By the end, you will want to be familiar enough with the datasets that you can think of [testable hypotheses][ps] that could point in specific policy directions.
+### Bibliography
+https://blog.prepscholar.com/act-scores-by-state-averages-highs-and-lows -- ACT Score and Participation 
+https://blog.collegevine.com/here-are-the-average-sat-scores-by-state/ -- SAT Score and Participation
 
-We will be looking for the following things:
-
-- For statistics questions, Python code -- using pandas, numpy, scipy, and/or other libraries -- to calculate correct answers, with Markdown explaining your results
-- For plotting questions, labeled matplotlib plots displayed within your notebook, with Markdown interpreting the results
-
----
-
-## Requirements
-
-- Materials must be in a clearly commented Jupyter notebook
-  - Here, we provide you with [starter code](./code/starter-code.ipynb) in a Jupyter notebook that will help to guide your data exploration and analysis. **If you choose to edit the core structure of this notebook, make sure you don't exclude any of the requested operations**
-  - More on the *structure of your submission repo* [here][deliverables]
-- Students should demonstrate the ability to:
-
-    - Analyze diverse datasets & explicitly state your assumptions
-    - Form hypotheses and justify them with solid statistical testing in NumPy
-    - Visualize and interpret your plots using Matplotlib and Seaborn
-
-- You will also [present your findings][presentation] on August 10th
-    - Assume you are presenting to the mayor (i.e., a non-technical audience)
-    - You have up to **4 minutes** (absolutely no longer!)
-    - You can choose to present on either or both tests
-    - Your slides must be in google slides (absolutely no exceptions)
-      - Download as .pdf to upload your slides to your repository
-
-*TIP*: 4 minutes is not long.  Think about what is most important to talk about.  
-
----
-
-### Useful Resources
-
-- [Pandas cheatsheet: descriptive statistics](https://chrisalbon.com/code/python/data_wrangling/pandas_dataframe_descriptive_stats/)
-- [Matplotlib examples gallery](https://matplotlib.org/stable/gallery/index.html)
-- [Seaborn examples gallery](http://seaborn.pydata.org/examples/)
-
----
-
-### Project Feedback + Evaluation
-
-For all projects, students will be evaluated on a simple 4 point scale (0, 1, 2, or 3). Instructors will use this [rubric][rubric] when scoring student performance on each of the [core project **requirements**][rubric]:
-
- Score | Expectations
- ----- | ------------
- **0** | _Does not meet expectations. Try again._
- **1** | _Approaching expectations. Getting there..._
- **2** | _Meets expectations. Great job._
- **3** | _Exceeds expectations. Portfolio-ready!_
-
----
-
-### REMEMBER:
-
-This is a learning environment and you are encouraged to try new things, even if they don't work out as well as you planned! While this rubric outlines what we look for in a _good_ project, it is up to you to go above and beyond to create a _great_ project. **Learn from your failures and you'll be prepared to succeed in the workforce**.
-
-[data]: https://git.generalassemb.ly/dsir-1031/project_1/wiki/Data
-[deliverables]: https://git.generalassemb.ly/dsir-1031/project_1/wiki/Deliverables
-[rubric]: https://git.generalassemb.ly/dsir-1031/project_1/wiki/Rubric
-[presentation]: https://git.generalassemb.ly/dsir-1031/project_1/wiki/Presentation
-[ps]: https://git.generalassemb.ly/dsir-1031/project_1/wiki/Problem-Statement
-[background]: https://git.generalassemb.ly/dsir-1031/project_1/wiki/SAT-ACT-background
